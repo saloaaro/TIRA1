@@ -1,13 +1,10 @@
 def calculate(input, rules):
-    # Lisätään L alkuun ja R loppuun
     tape = ['L'] + list(input) + ['R']
     
-    # Alustetaan robotti: robotti on L:n kohdalla ja tila 1
-    current_position = 0  # Alustetaan L:n kohdalle
+    current_position = 0 
     current_state = 1
     steps = 0
     
-    # Muutetaan säännöistä sanakirja, jossa avaimet ovat (merkki, tila)
     rule_dict = {}
     for rule in rules:
         mark, state, new_mark, new_state, action = rule
@@ -19,29 +16,25 @@ def calculate(input, rules):
         current_key = (current_mark, current_state)
         
         if current_key not in rule_dict:
-            return False  # Jos sääntöä ei löydy, hylkää syöte
+            return False 
         
-        # Hae sääntö
         new_mark, new_state, action = rule_dict[current_key]
         
-        # Muuta merkkiä ja tilaa
         tape[current_position] = new_mark
         current_state = new_state
         
-        # Toimi säännön mukaisesti
         if action == "RIGHT":
             current_position += 1
         elif action == "LEFT":
             current_position -= 1
         elif action == "ACCEPT":
-            return True  # Hyväksy syöte
+            return True  
         elif action == "REJECT":
-            return False  # Hylkää syöte
+            return False 
         
-        # Lisää askel
         steps += 1
     
-    return False  # Jos robotti tekee yli 1000 askelta, hylkää syöte
+    return False  
 
 
 if __name__ == "__main__":
